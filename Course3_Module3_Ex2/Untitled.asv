@@ -1,0 +1,37 @@
+clear;clc;close all;
+
+%% Step and simulation time
+step = 0.001;
+t = 0:step:20;
+
+%% Inertial matrix
+I1 = 100; % kgm^2
+I2 = 75; % kgm^2
+I3 = 80; % kgm^2
+I = [I1 0 0;0 I2 0;0 0 I3];
+
+%% Controller's parameters
+K = 5;
+P = 10*eye(3);
+L = 0;
+
+%% State
+sigma = cell(1,size(t,2));
+omega = cell(1,size(t,2));
+
+%% Initial condition
+sigma{1} = [0.1 0.2 -0.1]';
+omega{1} = [pi/6 pi/18 -pi/9]';
+
+for i = 1:size(t,2)
+   %% Control signal
+   u = -K*sigma{i} - P*omega{i} + cross(omega{i},(I*omega{i}));
+   domega = inv(I)*(cross(omega{i},(I*omega{i})) + u);
+   
+   %% Update state
+   omega{i+1} = omega{i} + step*domega;
+   
+   %% Update attitude
+   sigma_tilde = 
+   dsigma = 1/4*((1 - dot(sigma{i},sigma{i}))*eye(3) + 
+end
