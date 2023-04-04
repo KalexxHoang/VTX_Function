@@ -10,7 +10,7 @@ m1 = 1;
 m2 = 1;
 m3 = 1;
 P1 = 1;
-P2 = -0.72;
+P2 = 0.72;
 
 %% State vector
 q = cell(1,size(t,2));
@@ -61,8 +61,8 @@ for i = 1:size(t,2)
     dM = [dM11 dM12 dM13;dM21 dM22 dM23;dM31 dM32 dM33];
     
     %% Force vector
-    Q = -P1*dq{i};
-    %Q = -P2*M*dq{i};
+    %Q = -P1*dq{i};
+    Q = -P2*M*dq{i};
 
     ddq = inv(M)*(-dM*dq{i} + 1/2*Matrix + Q);
     
