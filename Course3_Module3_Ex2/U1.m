@@ -24,24 +24,18 @@ sigma_BN{1} = [0.1 0.2 -0.1]';
 omega_BN{1} = [pi/6 pi/18 -pi/9]';
 
 for i = 1:(size(t,2) - 1)
-   %% Control signal with reference frame equal to inertial frame
-   %u = -K*sigma{i} - P*omega{i} + cross(omega{i},(I*omega{i}));
-   
-   %% Control signal with sigma_RN
-   f = 0.05;
-   sigma_RN = [0.2*sin(f*t(i)) 0.3*cos(f*t(i)) -0.3*sin(f*t(i))]';
-   dsigma_RN = [0.2*f*cos(f*t(i)) -0.3*f*sin(f*t(i)) -0.3*f*cos(f*t(i))]';
+    %% Sigma_RN
+    f = 0.05;
+    sigma_RN = [0.2*sin(f*t(i)) 0.3*cos(f*t(i)) -0.3*sin(f*t(i))]';
+    
+    dsigma_RN = [0.2*f*cos(f*t(i)) -0.3*f*sin(f*t(i)) -0.3*f*cos(f*t(i))]';
    sigma_BR = sub_sigma(sigma_BN{i},sigma_RN);
    
    omega_RN = dsigma_2_omega(sigma_RN,dsigma_RN);
    omega_BR = omega_BN{i} - omega_RN;
    
-   %% Calculate domega_RN
-   ddsigma_RN = [-0.2*f^2*sin(f*t(i)) -0.3*f^2*cos(f*t(i)) 0.3*f^2*sin(f*t(i))]';
-   %domega_RN = sigma_2_domega(sigma_RN,dsigma_RN,ddsigma_RN);
-   domega_RN = inv(I)*(cross(omega_RN,(I*omega_RN)));
-   
-   u = -K*sigma_BR - P*omega_BR + I*(domega_RN - cross(omega_BN{i},omega_RN)) + cross(omega_BN{i},(I*omega_BN{i}));
+   domega_RN = [0 0 0]';
+   u = -K*sigma_BR - P*omega_BR;
    
    domega_BN = inv(I)*(cross(omega_BN{i},(I*omega_BN{i})) + u);
    

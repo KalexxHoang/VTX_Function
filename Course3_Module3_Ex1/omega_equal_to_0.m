@@ -35,12 +35,8 @@ for i = 1:(size(t,2) - 1)
    
    omega_RN = dsigma_2_omega(sigma_RN,dsigma_RN);
    omega_BR = omega_BN{i} - omega_RN;
-   
-   %% Calculate domega_RN
-   ddsigma_RN = [-0.2*f^2*sin(f*t(i)) -0.3*f^2*cos(f*t(i)) 0.3*f^2*sin(f*t(i))]';
-   %domega_RN = sigma_2_domega(sigma_RN,dsigma_RN,ddsigma_RN);
-   domega_RN = inv(I)*(cross(omega_RN,(I*omega_RN)));
-   
+
+   domega_RN = [0 0 0]';
    u = -K*sigma_BR - P*omega_BR + I*(domega_RN - cross(omega_BN{i},omega_RN)) + cross(omega_BN{i},(I*omega_BN{i}));
    
    domega_BN = inv(I)*(cross(omega_BN{i},(I*omega_BN{i})) + u);
