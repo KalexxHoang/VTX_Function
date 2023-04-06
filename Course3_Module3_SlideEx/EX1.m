@@ -13,6 +13,7 @@ clear;clc;close all;
 %% State vector
     sigma = cell(1,size(t,2));
     omega = cell(1,size(t,2));
+    u = cell(1,size(t,2));
     
 %% Initial condition
     sigma{1} = [-0.3 -0.4 0.2]';
@@ -26,8 +27,8 @@ for i = 1:(size(t,2) - 1)
    int_sigma = int_sigma + sigma{i}*step;
     
    %% Control signal
-   u = -K*sigma{i} - (P + P*KI*I)*omega{i} - K*P*KI*int_sigma + (P + P*KI*I)*omega{1} + cross(omega{i},(I*omega{i}));
-   domega = inv(I)*(cross(omega{i},(I*omega{i})) + u + deltaL);
+   u{i} = -K*sigma{i} - (P + P*KI*I)*omega{i} - K*P*KI*int_sigma + (P + P*KI*I)*omega{1} + cross(omega{i},(I*omega{i}));
+   domega = inv(I)*(cross(omega{i},(I*omega{i})) + u{i} + deltaL);
    
    %% Update state
    omega{i+1} = omega{i} + step*domega;
@@ -37,10 +38,12 @@ for i = 1:(size(t,2) - 1)
    dsigma = 1/4*((1 - dot(sigma{i},sigma{i}))*eye(3) + 2*sigma_tilde + 2*sigma{i}*sigma{i}')*omega{i};
    sigma{i+1} = sigma{i} + step*dsigma;
 end
+    u{250001} = u{25000};
 
 %% Plot
     sigma = cell2mat(sigma);
     omega = cell2mat(omega);
+    u = cell2mat(u);
     
     figure;
     plot(t,omega(1,:));
@@ -56,5 +59,13 @@ end
     plot(t,sigma(2,:));
     plot(t,sigma(3,:));
     title('sigma');
+    hold off
+    
+    figure;
+    plot(t,u(1,:));
+    hold on
+    plot(t,u(2,:));
+    plot(t,u(3,:));
+    title('u');
     hold off
     
