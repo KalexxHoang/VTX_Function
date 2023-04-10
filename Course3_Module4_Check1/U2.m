@@ -68,6 +68,7 @@ u{size(t,2)} = u{size(t,2)-1};
     hold on
     plot(t,omega_BN(2,:),'b-.');
     plot(t,omega_BN(3,:),'r');
+    grid on
     title('omega');
     hold off
     
@@ -76,6 +77,7 @@ u{size(t,2)} = u{size(t,2)-1};
     hold on
     plot(t,sigma_BN(2,:),'b-.');
     plot(t,sigma_BN(3,:),'r');
+    grid on
     title('sigma');
     hold off
     
@@ -84,6 +86,7 @@ u{size(t,2)} = u{size(t,2)-1};
     hold on
     plot(t,u(2,:),'b-.');
     plot(t,u(3,:),'r');
-    ylim([-1.2 1.2]);
+    grid on
+    ylim([-1.1 1.1]);
     title('u');
     hold off

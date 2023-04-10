@@ -2,7 +2,7 @@ clear;clc;close all;
 
 %% Step and simulation time
 step = 0.001;
-t = 0:step:30;
+t = 0:step:20;
 
 %% Parameters
 I = [30 0 0;0 20 0;0 0 10]; % kgm^2
@@ -44,6 +44,7 @@ u{size(t,2)} = u{size(t,2)-1};
     hold on
     plot(t,omega_BN(2,:),'b-.');
     plot(t,omega_BN(3,:),'r');
+    grid on
     title('omega');
     hold off
     
@@ -52,6 +53,7 @@ u{size(t,2)} = u{size(t,2)-1};
     hold on
     plot(t,sigma_BN(2,:),'b-.');
     plot(t,sigma_BN(3,:),'r');
+    grid on
     title('sigma');
     hold off
     
@@ -60,5 +62,6 @@ u{size(t,2)} = u{size(t,2)-1};
     hold on
     plot(t,u(2,:),'b-.');
     plot(t,u(3,:),'r');
+    grid on
     title('u');
     hold off

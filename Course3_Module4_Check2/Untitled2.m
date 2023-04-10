@@ -40,25 +40,28 @@ u{size(t,2)} = u{size(t,2)-1};
     u = cell2mat(u);
     
     figure;
-    plot(t,omega_BN(1,:),'k--');
+    plot(t,omega_BN(1,:),'g--');
     hold on
     plot(t,omega_BN(2,:),'b-.');
     plot(t,omega_BN(3,:),'r');
+    grid on
     title('omega');
     hold off
     
     figure;
-    plot(t,sigma_BN(1,:),'k--');
+    plot(t,sigma_BN(1,:),'g--');
     hold on
     plot(t,sigma_BN(2,:),'b-.');
     plot(t,sigma_BN(3,:),'r');
+    grid on
     title('sigma');
     hold off
     
     figure;
-    plot(t,u(1,:),'k--');
+    plot(t,u(1,:),'g--');
     hold on
     plot(t,u(2,:),'b-.');
     plot(t,u(3,:),'r');
+    grid on
     title('u');
     hold off
