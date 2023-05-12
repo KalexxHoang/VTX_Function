@@ -1,19 +1,23 @@
 clear;clc;close all;
 
+%% Time Switch
+    T1 = 800;
+    T2 = 2500;
+
 %% Altitude
-    h = 400; % km
+    h = 400*10^3; % m
     % Radius of Mars
-    R = 3396.19; % km
+    R = 3396.19*10^3; % m
     % Radius of orbit
-    r_LMO = R + h; % km
+    r_LMO = R + h; % m
     % Mars gravity constant
-    muy = 42828.3; % km^3/s^2
+    muy = 42828.3*10^9; % m^3/s^2
     % Constant orbit rate
     dtheta_LMO = sqrt(muy/r_LMO^3); % rad/s
     % Rotation period of Mars: 1h37'
     T = (24*60 + 37)*60; % s
     % Orbit radius of GMO (Geosynchronous Mars Orbit)
-    r_GMO = 20424.2; %km
+    r_GMO = 20424.2*10^3; %m
     % GMO orbit rate
     dtheta_GMO = sqrt(muy/r_GMO^3); % rad/s
 
