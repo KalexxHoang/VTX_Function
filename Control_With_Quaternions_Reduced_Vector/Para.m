@@ -42,7 +42,7 @@ clear;clc;close all
 
     h2 = 2.5;
 
-    J = diag([5 3 6]);
+    J = diag([7 2 5]);
 
     omega0 = 0.1;
 
@@ -113,10 +113,14 @@ clear;clc;close all
     B = inv(N);
 
 %% Calculate controller's parameters
-    R = eye(6);
-    [F,K_LQR,L] = icare(A,[],eye(6),[],[],[],-B*B');
+    R_LQR = eye(6);
+    Q = 10*eye(6);
+    [F,K_LQR,L] = icare(A,[],Q,[],[],[],-B*B');
+    %[F,K_LQR,L] = idare(A,B,Q,R,[],[]);
     
-    
+%% Kalman Parameters
+    x0 = [1 1.75 -1.5]'*pi/180; % rad/s
+    P0 = 0.05*eye(3);
     
     
     
